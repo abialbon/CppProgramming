@@ -1,19 +1,20 @@
 #include <iostream>
 #include <thread>
 #include "Chrono.h"
+#include <atomic>
 #define N 10'000
 #define N_THREADS 4
 
 using namespace std;
 
-void increment(int& n) {
+void increment(atomic<int>& n) {
     for (int i = 0; i < N; i++) {
         n++;
     }
 }
 
 int main() {
-    int n = 0;
+    atomic<int> n(0);
     Chrono c;
     thread ts[N_THREADS];
     for (int i = 0; i < N_THREADS; i++) {
